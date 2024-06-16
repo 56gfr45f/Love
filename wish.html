@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Uh!</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Particles.js CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.css">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background: linear-gradient(45deg, #ff4081, #2196f3);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            height: 100vh;
+            color: #fff;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            font-family: 'Roboto', sans-serif;
+            position: relative;
+        }
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+        .container {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+        .greeting {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            font-family: 'Great Vibes', cursive;
+            animation: bounceIn 1.5s ease-in-out forwards;
+        }
+        @keyframes bounceIn {
+            0%, 20%, 40%, 60%, 80%, 100% {
+                -webkit-transform: translateY(0);
+                transform: translateY(0);
+            }
+            50% {
+                -webkit-transform: translateY(-20px);
+                transform: translateY(-20px);
+            }
+        }
+        .message {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            display: none;
+            animation: fadeIn 2s ease-in-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .btn-custom {
+            background-color: #ff4081;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(255, 64, 129, 0.75);
+        }
+        .btn-custom:hover {
+            background-color: #e03571;
+            transform: scale(1.1);
+        }
+        .name-input {
+            margin-bottom: 20px;
+            padding: 10px;
+            font-size: 1.2rem;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            transition: border-color 0.3s ease;
+        }
+        .name-input:focus {
+            border-color: #ff4081;
+            outline: none;
+            box-shadow: 0 0 5px rgba(255, 64, 129, 0.5);
+        }
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+        .confetti, .heart {
+            position: absolute;
+            top: -10px;
+            width: 15px;
+            height: 15px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            animation: fall linear infinite;
+            z-index: 1;
+        }
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(360deg);
+            }
+        }
+        .heart {
+            position: absolute;
+            bottom: 0;
+            width: 20px;
+            height: 20px;
+            background-color: red;
+            transform: rotate(-45deg);
+            animation: fly-up 10s ease-in-out infinite;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: red;
+            border-radius: 50%;
+        }
+
+        .heart::before {
+            top: -10px;
+            left: 0;
+        }
+
+        .heart::after {
+            top: 0;
+            left: 10px;
+        }
+
+        @keyframes fly-up {
+            0% {
+                transform: translateY(100vh) scale(0.5);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-50vh) scale(1);
+                opacity: 0;
+            }
+        }
+        .surprise {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 21, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            display: none;
+            z-index: 3;
+            animation: surpriseAnimation 1s ease-in-out forwards;
+        }
+        .surprise img {
+            max-width: 100%;
+            border-radius: 10px;
+        }
+        @keyframes surpriseAnimation {
+            from { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+            to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        }
+        .video-container {
+            position: relative;
+            padding-top: 56.25%;
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            background: #000;
+            margin-top: 20px;
+        }
+        .video-container iframe,
+        .video-container object,
+        .video-container embed {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+    <div class="overlay"></div>
+    <div class="container">
+        <h1 class="greeting">Love You, Jana!</h1>
+        <input type="text" id="name" class="form-control name-input" placeholder="Enter your name">
+        <button class="btn btn-custom" onclick="showWishes()">Show Wishes</button>
+        <p id="personal-message" class="message"></p>
+        
+    </div>
+
+    <audio id="birthday-song" src="1.m4a"></audio>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        particlesJS('particles-js', {
+            "particles": {
+                "number": {
+                    "value": 100,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": ["#ff4081", "#ff80ab", "#ffeb3b", "#8bc34a", "#2196f3", "#9c27b0"]
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    },
+                    "polygon": {
+                        "nb_sides": 5
+                    }
+                },
+                "opacity": {
+                    "value": 0.5,
+                    "random": false,
+                    "anim": {
+                        "enable": false,
+                        "speed": 1,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 10,
+                    "random": true,
+                    "anim": {
+                        "enable": false,
+                        "speed": 40,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": false,
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 6,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": false,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "repulse"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 400,
+                        "line_linked": {
+                            "opacity": 1
+                        }
+                    },
+                    "bubble": {
+                        "distance": 400,
+                        "size": 40,
+                        "duration": 2,
+                        "opacity": 8,
+                        "speed": 3
+                    },
+                    "repulse": {
+                        "distance": 200,
+                        "duration": 0.4
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    },
+                    "remove": {
+                        "particles_nb": 2
+                    }
+                }
+            },
+            "retina_detect": true
+        });
+
+        function showWishes() {
+            const name = document.getElementById('name').value;
+            if (name) {
+                const message = `
+                 Love you ❤️ ${name} ❤️, Boht Boht Sara or jana Sorry apko preshan krny k liye! Plz Maaf kr dain 😘😘😘😘 
+                Ummmmmmmmmmmmmmaaaaaaaaaaaaaahhhhhhhhhhhhhhhh 😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘`;
+                document.getElementById('personal-message').innerText = message;
+                document.getElementById('personal-message').style.display = 'block';
+                createConfetti();
+                createHearts();
+                playBirthdaySong();
+                showSurprise();
+                playVideoMessage();
+            }
+        }
+
+        function createConfetti() {
+            for (let i = 0; i < 10; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                confetti.style.left = `${Math.random() * 100}vw`;
+                confetti.style.animationDuration = `${Math.random() * 2 + 3}s`;
+                confetti.style.backgroundColor = getRandomColor();
+                document.body.appendChild(confetti);
+            }
+        }
+
+        function createHearts() {
+            for (let i = 0; i < 30; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.style.left = `${Math.random() * 100}vw`;
+                heart.style.animationDuration = `${Math.random() * 70 + 3}s`;
+                document.body.appendChild(heart);
+            }
+        }
+
+        function getRandomColor() {
+            const colors = ['#ff4081', '#ff80ab', '#ffeb3b', '#8bc34a', '#2196f3', '#9c27b0'];
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+
+        function playBirthdaySong() {
+            const song = document.getElementById('birthday-song');
+            song.play();
+        }
+
+        function showSurprise() {
+            const surprise = document.getElementById('surprise');
+            setTimeout(() => {
+                surprise.style.display = 'block';
+            }, 10000);
+        }
+    </script>
+</body>
+</html>
