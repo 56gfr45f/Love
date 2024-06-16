@@ -17,7 +17,7 @@
             background-size: 400% 400%;
             animation: gradient 15s ease infinite;
             height: auto;
-            width: 100%;
+            width: auto;
             color: #fff;
             text-align: center;
             display: flex;
@@ -69,6 +69,8 @@
             margin-bottom: 30px;
             display: none;
             animation: fadeIn 2s ease-in-out forwards;
+        
+        max-width:400px;
         }
         @keyframes fadeIn {
             from { opacity: 0; }
@@ -165,45 +167,6 @@
                 transform: translateY(-50vh) scale(1);
                 opacity: 0;
             }
-        }
-        .surprise {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(255, 255, 21, 0.9);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-            display: none;
-            z-index: 3;
-            animation: surpriseAnimation 1s ease-in-out forwards;
-        }
-        .surprise img {
-            max-width: 100%;
-            border-radius: 10px;
-        }
-        @keyframes surpriseAnimation {
-            from { transform: translate(-50%, -50%) scale(0); opacity: 0; }
-            to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-        }
-        .video-container {
-            position: relative;
-            padding-top: 56.25%;
-            height: 0;
-            overflow: hidden;
-            max-width: 100%;
-            background: #000;
-            margin-top: 20px;
-        }
-        .video-container iframe,
-        .video-container object,
-        .video-container embed {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
         }
     </style>
 </head>
